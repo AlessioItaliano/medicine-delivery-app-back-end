@@ -1,3 +1,4 @@
-const medicinesRouter = require("./medicines");
+const medicinesRouter = require('./medicines');
+const authRouter = require('./auth');
 
-module.exports = { medicinesRouter };
+module.exports = { medicinesRouter, authRouter };

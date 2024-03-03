@@ -1,13 +1,11 @@
-const express = require("express");
+const express = require('express');
+
+const { medicineController } = require('../controllers');
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  console.log(req.method);
-  console.log(req.url);
-  res.json("<h2>main</h2>");
-});
+router.get('/', medicineController.getAll);
 
-router.get("/:id", (req, res) => {});
+router.get('/:type', medicineController.getByType);
 
 module.exports = router;
