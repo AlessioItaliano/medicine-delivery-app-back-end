@@ -20,6 +20,7 @@ const usersSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    token: String,
   },
   {
     versionKey: false,

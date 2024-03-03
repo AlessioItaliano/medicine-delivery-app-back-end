@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 
 const { User } = require('../models');
 const { HttpError } = require('../helpers');
-const { createTokens } = require('../helpers');
+const { createToken } = require('../helpers');
 
 const register = async body => {
   const user = await User.findOne({ email: body.email });
@@ -22,18 +22,19 @@ const login = async body => {
     throw new HttpError(401, 'Email or password is incorrect');
   }
   const isPasswordCorrect = await bcrypt.compare(body.password, user.password);
+
   if (!isPasswordCorrect) {
     throw new HttpError(401, 'Email or password is incorrect');
   }
 
-  const { accessToken } = createTokens(user);
+  const userToken = createToken(user);
   const updatedUser = await User.findByIdAndUpdate(
     user._id,
-    { token: accessToken },
+    { token: userToken },
     { new: true }
   );
 
-  return { user: updatedUser, token: accessToken };
+  return { user: updatedUser, token: userToken };
 };
 
 const logout = async user => {

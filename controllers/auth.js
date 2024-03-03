@@ -8,7 +8,7 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const result = await authService.login(req.params.type);
+  const result = await authService.login(req.body);
   res.status(200).json(result);
 };
 
