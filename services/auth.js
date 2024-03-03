@@ -1,27 +1,43 @@
+const bcrypt = require('bcryptjs');
+
 const { User } = require('../models');
+const { HttpError } = require('../helpers');
+const { createTokens } = require('../helpers');
 
-// const { HttpError } = require('../helpers');
+const register = async body => {
+  const user = await User.findOne({ email: body.email });
 
-const register = async () => {
-  const result = await User.create(req.body);
+  if (user) {
+    throw new HttpError(409, 'This user is already exist');
+  }
+  const hashedPassword = await bcrypt.hash(body.password, 12);
 
-  return result;
+  return await User.create({ ...body, password: hashedPassword });
 };
 
-const login = async type => {
-  const result = await User.find(
-    { typeOfMedicine: type },
-    '-createdAt -updatedAt'
+const login = async body => {
+  const user = await User.findOne({ email: body.email });
+
+  if (!user) {
+    throw new HttpError(401, 'Email or password is incorrect');
+  }
+  const isPasswordCorrect = await bcrypt.compare(body.password, user.password);
+  if (!isPasswordCorrect) {
+    throw new HttpError(401, 'Email or password is incorrect');
+  }
+
+  const { accessToken } = createTokens(user);
+  const updatedUser = await User.findByIdAndUpdate(
+    user._id,
+    { token: accessToken },
+    { new: true }
   );
-  return result;
+
+  return { user: updatedUser, token: accessToken };
 };
 
-const logout = async type => {
-  const result = await User.find(
-    { typeOfMedicine: type },
-    '-createdAt -updatedAt'
-  );
-  return result;
+const logout = async user => {
+  await User.findByIdAndUpdate(user._id, { token: null });
 };
 
 module.exports = {

@@ -3,18 +3,13 @@ const Joi = require('joi');
 const { regexHelpers } = require('../helpers');
 
 const registerScheme = Joi.object({
-  name: Joi.string()
-    .pattern(regexHelpers.emailRegex)
-    .min(1)
-    .max(20)
-    .required()
-    .messages({
-      'string.base': 'Name should be a string',
-      'string.pattern.base': 'Invalid name format',
-      'string.min': 'Name must be at least 3 characters',
-      'string.max': 'Name cannot be more than 20 characters',
-      'any.required': 'Missing required name field',
-    }),
+  name: Joi.string().min(1).max(20).required().messages({
+    'string.base': 'Name should be a string',
+    'string.pattern.base': 'Invalid name format',
+    'string.min': 'Name must be at least 3 characters',
+    'string.max': 'Name cannot be more than 20 characters',
+    'any.required': 'Missing required name field',
+  }),
   email: Joi.string().pattern(regexHelpers.emailRegex).required().messages({
     'string.base': 'Email should be a string',
     'string.pattern.base': 'Invalid email format',

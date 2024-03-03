@@ -10,21 +10,15 @@ const usersSchema = new mongoose.Schema(
       maxlength: 20,
       required: true,
     },
-    password: {
-      type: String,
-      match: regexHelpers.passwordRegex,
-      required: [true, `Please fill valid password`],
-    },
     email: {
       type: String,
       match: regexHelpers.emailRegex,
       required: [true, `Please fill valid email address`],
       unique: true,
     },
-    token: String,
-    verificationToken: {
+    password: {
       type: String,
-      required: [true, 'Verify token is required'],
+      required: true,
     },
   },
   {
