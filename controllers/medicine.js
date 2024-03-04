@@ -4,14 +4,6 @@ const { medicinesService } = require('../services');
 
 const { getAllMedicines, getMedicinesByType } = medicinesService;
 
-// const {
-//   getAllReviewService,
-//   getUserReviewService,
-//   createService,
-//   updateService,
-//   deleteService,
-// } = require('../services/reviewService');
-
 const getAll = async (_, res) => {
   const result = await getAllMedicines();
   res.status(200).json(result);

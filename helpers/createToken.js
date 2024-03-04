@@ -5,7 +5,7 @@ const { SECRET_KEY } = process.env;
 const createToken = user => {
   const payload = { id: user._id };
 
-  const result = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' });
+  const result = jwt.sign(payload, SECRET_KEY, { expiresIn: '3h' });
 
   return result;
 };

@@ -9,19 +9,19 @@ const authenticate = async (req, _, next) => {
   const [bearer, token] = authorization.split(' ');
 
   if (bearer !== 'Bearer') {
-    next(HttpError(401, 'Not authorized'));
+    next(new HttpError(401, 'Not authorized'));
   }
   try {
     const { id } = jwt.verify(token, SECRET_KEY);
     const result = await User.findById(id);
 
     if (!result || !result.token || result.token !== token) {
-      next(HttpError(401, 'Not authorized'));
+      next(new HttpError(401, 'Not authorized'));
     }
     req.user = result;
     next();
   } catch {
-    next(HttpError(401, 'Not authorized'));
+    next(new HttpError(401, 'Not authorized'));
   }
 };
 

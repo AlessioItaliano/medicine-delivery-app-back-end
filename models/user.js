@@ -20,7 +20,10 @@ const usersSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    token: String,
+    token: {
+      type: String,
+      default: '',
+    },
   },
   {
     versionKey: false,

@@ -12,7 +12,16 @@ const register = async body => {
   }
   const hashedPassword = await bcrypt.hash(body.password, 12);
 
-  return await User.create({ ...body, password: hashedPassword });
+  const newUser = await User.create({ ...body, password: hashedPassword });
+
+  const userToken = createToken(newUser);
+  const updatedUser = await User.findByIdAndUpdate(
+    newUser._id,
+    { token: userToken },
+    { new: true }
+  );
+
+  return { user: updatedUser, token: userToken };
 };
 
 const login = async body => {
@@ -41,8 +50,13 @@ const logout = async user => {
   await User.findByIdAndUpdate(user._id, { token: null });
 };
 
+const current = async user => {
+  return { user };
+};
+
 module.exports = {
   register,
   login,
   logout,
+  current,
 };
