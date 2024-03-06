@@ -48,18 +48,7 @@ const logInScheme = Joi.object({
     }),
 });
 
-// const emailVerificationSchema = Joi.object({
-//   email: Joi.string()
-//     .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
-//     .required()
-//     .messages({
-//       'string.base': 'Email should be a string',
-//       'string.email': 'Invalid email format',
-//       'any.required': 'Missing required email field',
-//     }),
-// });
 module.exports = {
   registerScheme,
   logInScheme,
-  //   emailVerificationSchema,
 };

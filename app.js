@@ -1,8 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 
-const { medicinesRouter } = require('./routes');
-const { authRouter } = require('./routes');
+const {
+  medicinesRouter,
+  authRouter,
+  ordersRouter,
+  couponsRouter,
+} = require('./routes');
 
 const app = express();
 
@@ -11,6 +15,8 @@ app.use(express.json());
 
 app.use('/', medicinesRouter);
 app.use('/auth', authRouter);
+app.use('/orders', ordersRouter);
+app.use('/coupons', couponsRouter);
 
 app.use((_, res) => {
   res.status(404).json({ message: 'Page not found' });

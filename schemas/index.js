@@ -1,7 +1,7 @@
 const authSchemas = require('./auth');
-const medicinesSchemas = require('./medicines');
+const ordersSchemas = require('./orders');
 
 module.exports = {
   authSchemas,
-  medicinesSchemas,
+  ordersSchemas,
 };
