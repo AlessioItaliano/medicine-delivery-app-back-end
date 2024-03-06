@@ -10,6 +10,9 @@ const registerScheme = Joi.object({
     'string.max': 'Name cannot be more than 20 characters',
     'any.required': 'Missing required name field',
   }),
+  phone: Joi.string().pattern(regexHelpers.phoneRegex).allow('').messages({
+    'string.pattern.base': 'Valid number is format +38000124567',
+  }),
   email: Joi.string().pattern(regexHelpers.emailRegex).required().messages({
     'string.base': 'Email should be a string',
     'string.pattern.base': 'Invalid email format',

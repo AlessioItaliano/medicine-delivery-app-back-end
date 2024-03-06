@@ -2,15 +2,23 @@ const { ctrlWrapper } = require('../helpers');
 
 const { medicinesService } = require('../services');
 
-const { getAllMedicines, getMedicinesByType } = medicinesService;
-
 const getAll = async (_, res) => {
-  const result = await getAllMedicines();
+  const result = await medicinesService.getAllMedicines();
   res.status(200).json(result);
 };
 
 const getByType = async (req, res) => {
-  const result = await getMedicinesByType(req.params.type);
+  const result = await medicinesService.getMedicinesByType(req.params.type);
+  res.status(200).json(result);
+};
+
+const getByPrice = async (req, res) => {
+  const result = await medicinesService.getMedicinesByPrice(req.params.price);
+  res.status(200).json(result);
+};
+
+const getByName = async (req, res) => {
+  const result = await medicinesService.getMedicinesByName(req.params.name);
   res.status(200).json(result);
 };
 
@@ -37,7 +45,8 @@ const getByType = async (req, res) => {
 module.exports = {
   getAll: ctrlWrapper(getAll),
   getByType: ctrlWrapper(getByType),
-  //   getUserReview: ctrlWrapper(getUserReview),
+  getByPrice: ctrlWrapper(getByPrice),
+  getByName: ctrlWrapper(getByName),
   //   createUserReview: ctrlWrapper(createUserReview),
   //   updateUserReview: ctrlWrapper(updateUserReview),
   //   deleteUserReview: ctrlWrapper(deleteUserReview),

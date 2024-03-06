@@ -15,6 +15,17 @@ const getMedicinesByType = async type => {
   return result;
 };
 
+const getMedicinesByPrice = async sortOrder => {
+  const sortDirection = sortOrder === 'low' ? 1 : -1;
+  return await Medicine.find().sort({ price: sortDirection });
+};
+
+const getMedicinesByName = async medicineName => {
+  return await Medicine.find({
+    name: { $regex: medicineName, $options: 'i' },
+  });
+};
+
 // const createService = async (user, body) => {
 //   const id = user.id;
 
@@ -68,6 +79,9 @@ const getMedicinesByType = async type => {
 module.exports = {
   getAllMedicines,
   getMedicinesByType,
+  getMedicinesByPrice,
+  getMedicinesByName,
+
   //   getUserReviewService,
   //   createService,
   //   updateService,

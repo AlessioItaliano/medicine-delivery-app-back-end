@@ -8,7 +8,12 @@ const usersSchema = new mongoose.Schema(
       type: String,
       minlength: 1,
       maxlength: 20,
-      required: true,
+      required: [true, `Please fill valid user name`],
+    },
+    phone: {
+      type: String,
+      match: regexHelpers.phoneRegex,
+      required: [true, `Please fill valid phone number`],
     },
     email: {
       type: String,
