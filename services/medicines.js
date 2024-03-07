@@ -1,7 +1,5 @@
 const { Medicine } = require('../models');
 
-// const { HttpError } = require('../helpers');
-
 const getAllMedicines = async () => {
   const result = await Medicine.find({}, '-createdAt -updatedAt');
   return result;

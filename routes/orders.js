@@ -7,7 +7,7 @@ const { validateBody, authenticate } = require('../middlewares');
 
 const { ordersController } = require('../controllers');
 
-// router.get('/orders/:id', ordersController.getById);
+router.get('/user', authenticate, ordersController.getUserOrders);
 
 router.post(
   '/',

@@ -2,10 +2,10 @@ const { ctrlWrapper } = require('../helpers');
 
 const { ordersService } = require('../services');
 
-// const getAll = async (_, res) => {
-//   const result = await medicinesService.getAllMedicines();
-//   res.status(200).json(result);
-// };
+const getUserOrders = async (req, res) => {
+  const result = await ordersService.getByIdService(req.user);
+  res.status(200).json(result);
+};
 
 const addOrder = async (req, res) => {
   const result = await ordersService.addOrderService(req.user, req.body);
@@ -13,8 +13,6 @@ const addOrder = async (req, res) => {
 };
 
 module.exports = {
-  //   getAll: ctrlWrapper(getAll),
+  getUserOrders: ctrlWrapper(getUserOrders),
   addOrder: ctrlWrapper(addOrder),
-  //   getByPrice: ctrlWrapper(getByPrice),
-  //   getByName: ctrlWrapper(getByName),
 };

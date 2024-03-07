@@ -11,12 +11,12 @@ const orderSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'user',
     },
-    // medicinesList: [
-    //   {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'medicine',
-    //   },
-    // ],
+    orderList: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'medicine',
+      },
+    ],
   },
   {
     versionKey: false,
